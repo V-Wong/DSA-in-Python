@@ -18,6 +18,23 @@ class LinkedList:
 
             prev.next = Node(val)
 
+    def prepend(self, val):
+        if not self.head:
+            self.head = Node(val)
+        else:
+            new_node = Node(val)
+            new_node.next = self.head
+            self.head = new_node
+
+    def insert_after_node(self, prev_node, val):
+        if not prev_node:
+            return
+
+        next_node = prev_node.next
+        new_node = Node(val)
+        new_node.next = next_node
+        prev_node.next = new_node
+
     def print_list(self):
         traversal = []
 
@@ -42,4 +59,6 @@ if __name__ == "__main__":
         for num in test_case:
             l.append(num)
 
+        l.insert_after_node(l.head, "After head")
+        l.prepend("first")
         l.print_list()
