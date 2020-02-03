@@ -67,6 +67,32 @@ class LinkedList:
                 if cur:
                     prev.next = cur.next
 
+    def iterative_reverse(self):
+        prev = None
+        cur = self.head
+
+        while cur:
+            nxt = cur.next
+            cur.next = prev
+            prev = cur
+            cur = nxt
+
+        self.head = prev
+
+    def recursive_reverse(self):
+        def _reverse(cur, prev):
+            if not cur:
+                return prev
+            else:
+                nxt = cur.next
+                cur.next = prev
+                prev = cur
+                cur = nxt
+
+                return _reverse(cur, prev)
+
+        self.head = _reverse(self.head, None)
+
     def length(self, node=-1):
         if node == -1:
             node = self.head
@@ -103,5 +129,6 @@ if __name__ == "__main__":
         l.insert_after_node(l.head, "After head")
         l.prepend("first")
         l.delete_by_position(7)
+        l.recursive_reverse()
         l.print_list()
         print(f"Length: {l.length()}")
