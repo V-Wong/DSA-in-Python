@@ -35,6 +35,21 @@ class LinkedList:
         new_node.next = next_node
         prev_node.next = new_node
 
+    def delete_by_value(self, val):
+        if not self.head:
+            return None
+        elif self.head.val == val:
+            self.head = self.head.next
+        else:
+            prev = None
+            cur = self.head
+            while cur and cur.val != val:
+                prev = cur
+                cur = cur.next
+
+            if cur:
+                prev.next = cur.next
+
     def print_list(self):
         traversal = []
 
@@ -61,4 +76,5 @@ if __name__ == "__main__":
 
         l.insert_after_node(l.head, "After head")
         l.prepend("first")
+        l.delete_by_value(7)
         l.print_list()
