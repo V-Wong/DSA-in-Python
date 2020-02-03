@@ -34,6 +34,27 @@ class CircularLinkedList:
 
         self.head = new_node
 
+    def delete(self, val):
+        if self.head:
+            if self.head.val == val:
+                if self.head.next == self.head:
+                    self.head = None
+                else:
+                    new_head = self.head.next
+                    cur = self.head.next
+                    while cur.next != self.head:
+                        cur = cur.next
+                    cur.next = new_head
+                    self.head = new_head
+            else:
+                prev = None
+                cur = self.head
+                while cur.next != self.head:
+                    prev = cur
+                    cur = cur.next
+                    if cur.val == val:
+                        prev.next = cur.next
+
     def print_list(self):
         traversal = []
         cur = self.head
@@ -64,4 +85,5 @@ if __name__ == "__main__":
         l.list_from_array(test_case)
         l.prepend(-100)
         l.append(100)
+        l.delete(1)
         l.print_list()
