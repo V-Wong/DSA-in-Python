@@ -50,6 +50,23 @@ class LinkedList:
             if cur:
                 prev.next = cur.next
 
+    def delete_by_position(self, pos):
+        if self.head:
+            if pos == 0:
+                self.head = self.head.next
+            else:
+                prev = None
+                cur = self.head
+                for _ in range(pos):
+                    prev = cur
+                    cur = cur.next
+
+                    if not cur:
+                        break
+
+                if cur:
+                    prev.next = cur.next
+
     def print_list(self):
         traversal = []
 
@@ -76,5 +93,5 @@ if __name__ == "__main__":
 
         l.insert_after_node(l.head, "After head")
         l.prepend("first")
-        l.delete_by_value(7)
+        l.delete_by_position(7)
         l.print_list()
