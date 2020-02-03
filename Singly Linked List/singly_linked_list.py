@@ -124,6 +124,20 @@ class LinkedList:
 
         return new_head
 
+    def delete_duplicates(self):
+        seen = set()
+
+        prev = None
+        cur = self.head
+
+        while cur:
+            if cur.val in seen:
+                prev.next = cur.next
+            else:
+                seen.add(cur.val)
+                prev = cur
+            cur = prev.next
+
     def length(self, node=-1):
         if node == -1:
             node = self.head
@@ -164,7 +178,7 @@ if __name__ == "__main__":
         l.print_list()
         print(f"Length: {l.length()}")
 
-    print("Test sorted merge:")
+    print("\nTest sorted merge:")
     
     l0 = LinkedList()
     l1 = LinkedList()
@@ -176,3 +190,10 @@ if __name__ == "__main__":
     new_list = LinkedList()
     new_list.head = l0.merge_sorted(l1)
     new_list.print_list()
+
+    print("\nTest delete duplicates:")
+    l = LinkedList()
+    for num in [1, 1, 1, 2, 3, 3, 4, 3, 3, 3, 5, 6, 3, 3]:
+        l.append(num)
+    l.delete_duplicates()
+    l.print_list()
