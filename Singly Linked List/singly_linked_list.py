@@ -67,6 +67,15 @@ class LinkedList:
                 if cur:
                     prev.next = cur.next
 
+    def length(self, node=-1):
+        if node == -1:
+            node = self.head
+
+        if not node:
+            return 0
+        else:
+            return 1 + self.length(node.next)
+
     def print_list(self):
         traversal = []
 
@@ -95,3 +104,4 @@ if __name__ == "__main__":
         l.prepend("first")
         l.delete_by_position(7)
         l.print_list()
+        print(f"Length: {l.length()}")
