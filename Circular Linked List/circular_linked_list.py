@@ -55,6 +55,27 @@ class CircularLinkedList:
                     if cur.val == val:
                         prev.next = cur.next
 
+    def delete_node(self, node):
+        if self.head:
+            if self.head == node:
+                if self.head.next == self.head:
+                    self.head = None
+                else:
+                    new_head = self.head.next
+                    cur = self.head.next
+                    while cur.next != self.head:
+                        cur = cur.next
+                    cur.next = new_head
+                    self.head = new_head
+            else:
+                prev = None
+                cur = self.head
+                while cur.next != self.head:
+                    prev = cur
+                    cur = cur.next
+                    if cur == node:
+                        prev.next = cur.next
+
     def split_list(self):
         length = len(self)
 
