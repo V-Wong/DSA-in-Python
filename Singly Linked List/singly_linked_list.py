@@ -93,6 +93,37 @@ class LinkedList:
 
         self.head = _reverse(self.head, None)
 
+    def merge_sorted(self, list2):
+        if not self.head:
+            return list2
+        elif not list2:
+            return self.head
+
+        p, q = self.head, list2.head
+        
+        if p.val < q.val:
+            new_head = p
+            p = p.next
+        else:
+            new_head = q
+            q = q.next
+
+        cur = new_head
+        while p and q:
+            if p.val <= q.val:
+                cur.next = p
+                p = p.next
+            else:
+                cur.next = q
+                q = q.next
+            cur = cur.next
+        if not p:
+            cur.next = q
+        if not q:
+            cur.next = p
+
+        return new_head
+
     def length(self, node=-1):
         if node == -1:
             node = self.head
@@ -132,3 +163,16 @@ if __name__ == "__main__":
         l.recursive_reverse()
         l.print_list()
         print(f"Length: {l.length()}")
+
+    print("Test sorted merge:")
+    
+    l0 = LinkedList()
+    l1 = LinkedList()
+    for num in [1, 2, 3, 4, 5]:
+        l0.append(num)
+    for num in [2, 4, 5, 6, 10]:
+        l1.append(num)
+
+    new_list = LinkedList()
+    new_list.head = l0.merge_sorted(l1)
+    new_list.print_list()
