@@ -138,6 +138,20 @@ class LinkedList:
                 prev = cur
             cur = prev.next
 
+    def nth_last(self, n):
+        p, q = self.head, self.head
+
+        for _ in range(n - 1):
+            q = q.next
+            if not q:
+                return None
+
+        while p and q.next:
+            p = p.next
+            q = q.next
+
+        return p.val
+
     def length(self, node=-1):
         if node == -1:
             node = self.head
@@ -176,6 +190,7 @@ if __name__ == "__main__":
         l.delete_by_position(7)
         l.recursive_reverse()
         l.print_list()
+        print(f"2nd last: {l.nth_last(2)}")
         print(f"Length: {l.length()}")
 
     print("\nTest sorted merge:")
