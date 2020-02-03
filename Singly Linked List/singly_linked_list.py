@@ -138,6 +138,27 @@ class LinkedList:
                 prev = cur
             cur = prev.next
 
+    def rotate_right(self, k):
+        if not self.head:
+            return None
+        
+        k %= self.length(self.head)
+
+        p, q = self.head, self.head
+        
+        for _ in range(k):
+            q = q.next
+            
+        while q.next:
+            p = p.next
+            q = q.next
+            
+        q.next = self.head
+        new_head = p.next
+        p.next = None
+            
+        self.head = new_head
+
     def nth_last(self, n):
         p, q = self.head, self.head
 
@@ -230,3 +251,15 @@ if __name__ == "__main__":
         l.append(num)
     l.print_list()
     print(f"{l.count_occurences(1)} occurences of 1")
+
+    print("\nTest rotate right:")
+    l = LinkedList()
+    for num in [1, 1, 1, 2, 3, 3, 4, 3, 3, 3, 5, 6, 3, 3]:
+        l.append(num)
+    l.print_list()
+    print("Rotate 2: ")
+    l.rotate_right(2)
+    l.print_list()
+    print("Rotate 10: ")
+    l.rotate_right(10)
+    l.print_list()
