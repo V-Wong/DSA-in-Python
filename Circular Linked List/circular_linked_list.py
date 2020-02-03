@@ -55,6 +55,40 @@ class CircularLinkedList:
                     if cur.val == val:
                         prev.next = cur.next
 
+    def split_list(self):
+        length = len(self)
+
+        if length == 0 or length == 1:
+            return CircularLinkedList()
+
+        midpoint = length // 2
+
+        prev = None
+        cur = self.head
+        for _ in range(midpoint):
+            prev = cur
+            cur = cur.next
+
+        prev.next = self.head
+
+        new_list = CircularLinkedList()
+        while cur and cur != self.head:
+            new_list.append(cur.val)
+            cur = cur.next
+
+        return new_list
+
+    def __len__(self):
+        length = 0
+        cur = self.head
+        while cur:
+            length += 1
+            cur = cur.next
+            if cur == self.head:
+                break
+
+        return length
+
     def print_list(self):
         traversal = []
         cur = self.head
@@ -87,3 +121,10 @@ if __name__ == "__main__":
         l.append(100)
         l.delete(1)
         l.print_list()
+
+    print("\nTest split list:")
+    l = CircularLinkedList()
+    l.list_from_array([1])
+    right_half = l.split_list()
+    l.print_list()
+    right_half.print_list()
