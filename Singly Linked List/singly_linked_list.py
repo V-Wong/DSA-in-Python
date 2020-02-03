@@ -152,6 +152,17 @@ class LinkedList:
 
         return p.val
 
+    def count_occurences(self, val):
+        def _count(cur, val):
+            if not cur:
+                return 0
+            elif cur.val == val:
+                return 1 + _count(cur.next, val)
+            else:
+                return _count(cur.next, val)
+
+        return _count(self.head, val)
+
     def length(self, node=-1):
         if node == -1:
             node = self.head
@@ -212,3 +223,10 @@ if __name__ == "__main__":
         l.append(num)
     l.delete_duplicates()
     l.print_list()
+
+    print("\nTest count occurences:")
+    l = LinkedList()
+    for num in [1, 1, 1, 2, 3, 3, 4, 3, 3, 3, 5, 6, 3, 3]:
+        l.append(num)
+    l.print_list()
+    print(f"{l.count_occurences(1)} occurences of 1")
