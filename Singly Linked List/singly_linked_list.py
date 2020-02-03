@@ -159,6 +159,31 @@ class LinkedList:
             
         self.head = new_head
 
+    def sum_two_lists(self, list2):
+        new_list = Node(0)
+        cur = new_list
+        p, q = self.head, list2.head
+
+        carry = 0
+        while p or q:
+            pval = p.val if p else 0
+            qval = q.val if q else 0
+
+            cur.val = ((pval + qval) % 10) + carry
+            carry = 1 if pval + qval >= 10 else 0
+
+            p = p.next if p else None
+            q = q.next if q else None
+            
+            if p or q or carry:
+                cur.next = Node(0)
+            cur = cur.next
+
+        if carry:
+            cur.val = carry
+
+        self.head = new_list
+
     def nth_last(self, n):
         p, q = self.head, self.head
 
@@ -263,3 +288,16 @@ if __name__ == "__main__":
     print("Rotate 10: ")
     l.rotate_right(10)
     l.print_list()
+
+    print("\nTest sum two linked lists")
+    l0 = LinkedList()
+    l1 = LinkedList()
+    for num in [1, 5, 1]:
+        l0.append(num)
+    for num in [1, 5]:
+        l1.append(num)
+    l0.print_list()
+    l1.print_list()
+    l0.sum_two_lists(l1)
+    l0.print_list()
+    
