@@ -58,6 +58,24 @@ class DoublyLinkedList:
                     cur.prev.next = new_node
                     cur.prev = new_node
 
+    def delete(self, key):
+        cur = self.head
+        while cur.val != key:
+            cur = cur.next
+
+        if cur:
+            if not cur.next and not cur.prev:
+                self.head = None
+            elif not cur.prev:
+                self.head = cur.next
+                self.head.prev = None
+            elif not cur.next:
+                cur.prev.next = None
+            else:
+                prev_node, next_node = cur.prev, cur.next
+                prev_node.next = next_node
+                next_node.prev = prev_node
+
     def print_list(self):
         traversal = []
 
@@ -89,5 +107,9 @@ if __name__ == "__main__":
         l.insert_after_node(100, "end")
         l.insert_before_node(-100, "start")
         l.insert_before_node(1, "before 1")
+        l.delete("start")
+        l.delete(100)
+        l.delete(-100)
+        l.delete("end")
         l.print_list()
 
