@@ -28,6 +28,36 @@ class DoublyLinkedList:
             new_node.next = self.head
             self.head = new_node
 
+    def insert_after_node(self, key, val):
+        if self.head:
+            cur = self.head
+            while cur and cur.val != key:
+                cur = cur.next
+            
+            if cur:
+                if not cur.next:
+                    self.append(val)
+                else:
+                    new_node = Node(val)
+                    new_node.next = cur.next
+                    cur.next.prev = new_node
+                    cur.next = new_node
+
+    def insert_before_node(self, key, val):
+        if self.head:
+            cur = self.head
+            while cur and cur.val != key:
+                cur = cur.next
+            
+            if cur:
+                if not cur.prev:
+                    self.prepend(val)
+                else:
+                    new_node = Node(val)
+                    new_node.next = cur
+                    cur.prev.next = new_node
+                    cur.prev = new_node
+
     def print_list(self):
         traversal = []
 
@@ -55,5 +85,9 @@ if __name__ == "__main__":
         l.list_from_array(test_case)
         l.prepend(-100)
         l.append(100)
+        l.insert_after_node(1, "after 1")
+        l.insert_after_node(100, "end")
+        l.insert_before_node(-100, "start")
+        l.insert_before_node(1, "before 1")
         l.print_list()
 
