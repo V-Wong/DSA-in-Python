@@ -76,6 +76,24 @@ class DoublyLinkedList:
                 prev_node.next = next_node
                 next_node.prev = prev_node
 
+    def delete_node(self, node):
+        cur = self.head
+        while cur != node:
+            cur = cur.next
+
+        if cur:
+            if not cur.next and not cur.prev:
+                self.head = None
+            elif not cur.prev:
+                self.head = cur.next
+                self.head.prev = None
+            elif not cur.next:
+                cur.prev.next = None
+            else:
+                prev_node, next_node = cur.prev, cur.next
+                prev_node.next = next_node
+                next_node.prev = prev_node
+
     def reverse(self):
         def _reverse(head):
             if not head:
@@ -88,6 +106,19 @@ class DoublyLinkedList:
                 return _reverse(head.prev)
 
         self.head = _reverse(self.head)
+
+    def remove_duplicates(self):
+        seen = set()
+
+        cur = self.head
+        while cur:
+            if cur.val in seen:
+                to_delete = cur
+                cur = cur.next
+                self.delete_node(to_delete)
+            else:
+                seen.add(cur.val)
+                cur = cur.next
 
     def print_list(self):
         traversal = []
@@ -134,4 +165,20 @@ if __name__ == "__main__":
         l.print_list()
         print("Reversed:")
         l.reverse()
+        l.print_list()
+
+    test_cases = [
+        [1, 1, 1, 1, 1, 1, 1, 1],
+        [1],
+        [],
+        [1, 2, 3, 1, 1, 1, 5, 1]
+    ]
+
+    print("\nTest remove duplicates:")
+    for test_case in test_cases:
+        l = DoublyLinkedList()
+        l.list_from_array(test_case)
+        l.print_list()
+        print("Duplicates removed:")
+        l.remove_duplicates()
         l.print_list()
