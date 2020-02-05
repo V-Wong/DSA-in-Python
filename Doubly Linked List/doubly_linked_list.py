@@ -76,6 +76,19 @@ class DoublyLinkedList:
                 prev_node.next = next_node
                 next_node.prev = prev_node
 
+    def reverse(self):
+        def _reverse(head):
+            if not head:
+                return None
+            elif not head.next:
+                head.prev, head.next = head.next, head.prev
+                return head
+            else:
+                head.prev, head.next = head.next, head.prev
+                return _reverse(head.prev)
+
+        self.head = _reverse(self.head)
+
     def print_list(self):
         traversal = []
 
@@ -95,7 +108,8 @@ if __name__ == "__main__":
     test_cases = [
         [1, 2, 3, 4, 5, 6],
         [1],
-        []
+        [],
+        [1, 2]
     ]
 
     for test_case in test_cases:
@@ -113,3 +127,11 @@ if __name__ == "__main__":
         l.delete("end")
         l.print_list()
 
+    print("\nTest reverse:")
+    for test_case in test_cases:
+        l = DoublyLinkedList()
+        l.list_from_array(test_case)
+        l.print_list()
+        print("Reversed:")
+        l.reverse()
+        l.print_list()
